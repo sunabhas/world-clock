@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/2 my-1 mx-2">
+  <div class="w-full px-2 my-1 mx-2">
     <label :for="id" class="block mb-2 text-sm font-medium text-gray-900">{{ label }}</label>
     <select
       :id="id"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps<{
   id: string;
