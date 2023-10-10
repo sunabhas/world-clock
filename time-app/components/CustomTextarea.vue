@@ -1,18 +1,18 @@
 <template>
-  <div class="w-4/5 mb-2">
+  <div class="w-full mb-2">
     <label :for="id" class="block mb-2 text-sm font-medium text-gray-900">{{ label }}</label>
     <textarea
       :id="id"
       rows="5"
       v-model="text"
       :class="inputClasses"
+      @change="handleTextChange"
       :placeholder="placeholder"
     ></textarea>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps } from 'vue';
 
 const props = defineProps<{
   id: string;
@@ -21,6 +21,13 @@ const props = defineProps<{
 }>();
 
 const text = ref('');
+const emits = defineEmits(['updateNote']);
+
+const handleTextChange = () => {
+  // Emit the selected option to the parent component
+  emits('updateNote', text.value);
+};
+
 
 const inputClasses = computed(() => {
   return [
