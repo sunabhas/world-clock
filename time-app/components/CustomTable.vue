@@ -9,7 +9,7 @@
             v-for="(header, index) in tableHeaders"
             :key="index"
             scope="col"
-            class="px-6 py-3"
+            class="px-6 py-3 w-1/2 text-center text-white"
           >
             {{ header }}
           </th>
@@ -25,9 +25,9 @@
           <td
             v-for="(header, colIndex) in tableHeaders"
             :key="colIndex"
-            class="px-6 py-4"
-          >
-            <!-- {{row[rowIndex][header.toLowerCase()]}} -->
+            class="px-6 py-4 w-1/2 text-center text-light-gray"
+          > 
+            {{row[header.toLowerCase()]}}
           </td>
         </tr>
       </tbody>
@@ -36,10 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref} from 'vue';
 
 const props = defineProps<{
   tableHeaders: string[];
-  tableData: Record<string, any>[];
+  tableData: {note: string; time: string}[];
 }>();
 </script>
