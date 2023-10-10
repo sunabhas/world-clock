@@ -1,0 +1,1 @@
+/** All the commonly used functions to be declared here */
