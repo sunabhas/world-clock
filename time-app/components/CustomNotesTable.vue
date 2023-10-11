@@ -1,15 +1,15 @@
 <template>
-  <div class="relative overflow-x-auto w-3/5 m-auto">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+  <div class="relative overflow-x-auto w-full mt-8 m-auto">
+    <table class="w-full text-sm text-left text-gray-500">
       <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        class="text-xs text-gray-50 uppercase bg-gray-800"
       >
-        <tr>
+        <tr v-if="tableData.length">
           <th
             v-for="(header, index) in tableHeaders"
             :key="index"
             scope="col"
-            class="px-6 py-3 w-1/2 text-center text-white"
+            class="px-6 py-3 w-1/4"
           >
             {{ header }}
           </th>
@@ -20,12 +20,15 @@
         <tr
           v-for="(row, rowIndex) in tableData"
           :key="rowIndex"
-          :class="rowIndex % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-700'"
+          
+          :class="
+            'bg-white border-b'
+          "
         >
           <td
             v-for="(header, colIndex) in tableHeaders"
             :key="colIndex"
-            class="px-6 py-4 w-1/2 text-center text-light-gray"
+            class="px-6 py-4 w-1/4"
           > 
             {{row[header.toLowerCase()]}}
           </td>

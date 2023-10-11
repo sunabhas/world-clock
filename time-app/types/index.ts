@@ -23,5 +23,12 @@ export interface TimezoneInfo {
     utc_offset: string;
     week_number: number;
   }
+
+export interface Note {
+    note: string;
+    time: string;
+    area: string;
+    location: string
+}  
   
 
