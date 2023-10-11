@@ -31,4 +31,9 @@ export const getLocations = (list: string[], selectedArea: string) => {
     label: item,
   }));
 }
+
+export const formatDateTime = (utcDateTime: string): string => {
+  const date = new Date(utcDateTime);
+  return date.toLocaleString(); // Customize the format as needed
+}
   
