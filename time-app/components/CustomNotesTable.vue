@@ -4,7 +4,7 @@
       <thead
         class="text-xs text-gray-50 uppercase bg-gray-800"
       >
-        <tr v-if="tableData.length">
+        <tr v-if="tableNotesData?.length">
           <th
             v-for="(header, index) in tableHeaders"
             :key="index"

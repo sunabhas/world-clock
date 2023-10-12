@@ -6,8 +6,8 @@ exports[`NoteList > renders with given props 1`] = `
     class="p-2 my-4"
   >
     <custom-notes-table
-      tabledata="[object Object]"
       tableheaders="Note,Time,Area,Location"
+      tablenotesdata="[object Object]"
     />
   </div>
 </div>
