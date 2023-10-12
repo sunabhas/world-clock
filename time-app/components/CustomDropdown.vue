@@ -31,11 +31,6 @@
   const emits = defineEmits(["updateSelection"]);
 
   const handleSelectChange = () => {
-    // Emit the selected option to the parent component
     emits("updateSelection", selectedOption.value);
   };
 </script>
-
-<style scoped>
-  /* You can add Tailwind CSS classes here for styling */
-</style>

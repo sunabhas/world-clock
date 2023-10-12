@@ -4,7 +4,7 @@ import CustomNotesTable from '../components/CustomNotesTable.vue';
 describe('CustomNotesTable', () => {
   it('renders the table headers and data correctly', () => {
     const tableHeaders = ['Note', 'Time'];
-    const tableData = [
+    const tableNotesData = [
       { note: 'Note 1', time: '2023-01-01' },
       { note: 'Note 2', time: '2023-02-01' },
     ];
@@ -12,7 +12,7 @@ describe('CustomNotesTable', () => {
     const wrapper = mount(CustomNotesTable, {
       props: {
         tableHeaders,
-        tableData,
+        tableNotesData,
       },
     });
 
@@ -20,6 +20,6 @@ describe('CustomNotesTable', () => {
     expect(headerCells).toHaveLength(tableHeaders.length);
 
     const rows = wrapper.findAll('tbody tr');
-    expect(rows).toHaveLength(tableData.length);
+    expect(rows).toHaveLength(tableNotesData.length);
   });
 });

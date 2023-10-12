@@ -23,9 +23,9 @@
   }>();
 
   const text = ref("");
-  const emits = defineEmits(["updateNote"]);
+  const emits = defineEmits(["updateText"]);
 
   const handleTextChange = () => {
-    emits("updateNote", text.value);
+    emits("updateText", text.value);
   };
 </script>

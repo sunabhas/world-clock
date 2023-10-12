@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@testing-library/vue": "^7.0.0",
+    "vue-spinner": "^1.0.4",
     "vue-toastification": "^2.0.0-rc.5"
   }
 }
