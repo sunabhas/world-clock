@@ -17,7 +17,7 @@ export const getSelectedDateTime = async (baseUrl: string, area: string, locatio
   };
 };
 
-export const submitTimezoneData = async (
+export const submitNotesInfo = async (
   url: string,
   payload: { body: string; time: string }
 ) => {

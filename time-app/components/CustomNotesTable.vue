@@ -18,7 +18,7 @@
       <tbody>
 
         <tr
-          v-for="(row, rowIndex) in tableData"
+          v-for="(row, rowIndex) in tableNotesData"
           :key="rowIndex"
           
           :class="
@@ -30,7 +30,7 @@
             :key="colIndex"
             class="px-6 py-4 w-1/4"
           > 
-            {{row[header.toLowerCase()]}}
+            <div class="text-clip">{{row[header.toLowerCase()]}}</div>
           </td>
         </tr>
       </tbody>
@@ -42,6 +42,6 @@
 
 const props = defineProps<{
   tableHeaders: string[];
-  tableData: {note: string; time: string}[];
+  tableNotesData: {note: string; time: string}[];
 }>();
 </script>
