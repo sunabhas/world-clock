@@ -1,16 +1,15 @@
 /** All the commonly used functions to be declared here */
 
 /**
- * 
- * @param arr 
+ *
+ * @param arr
  * @returns an array of unique elements by removing the duplicates
  */
 const getUniqueItems = (arr: string[]) => [...new Set(arr)];
 
-
 /**
- * 
- * @param list 
+ *
+ * @param list
  * @returns a list of area by removing the associated locations
  */
 export const getAreas = (list: string[]) => {
@@ -27,11 +26,10 @@ export const getAreas = (list: string[]) => {
   return uniqueList;
 };
 
-
 /**
- * 
- * @param list 
- * @param selectedArea 
+ *
+ * @param list
+ * @param selectedArea
  * @returns the list of location associated with the selected area.
  */
 export const getLocations = (list: string[], selectedArea: string) => {
@@ -49,11 +47,45 @@ export const getLocations = (list: string[], selectedArea: string) => {
 };
 
 /**
- * 
- * @param utcDateTime 
+ *
+ * @param utcDateTime
  * @returns the date format in readable form
  */
 export const formatDateTime = (utcDateTime: string): string => {
   const date = new Date(utcDateTime);
   return date.toLocaleString();
+};
+
+type CamelCase<T> = T extends `${infer First}_${infer Rest}`
+  ? `${Uncapitalize<First>}${CamelCase<Rest>}`
+  : T;
+
+/**
+ *
+ * @param input
+ * @returns the keys of the object in camel case if they are in snake case
+ */
+export const snakeToCamel = <T extends Record<string, any>>(
+  input: T
+): Record<keyof T, any> => {
+  if (typeof input !== "object" || input === null) {
+    return input as Record<keyof T, any>; // If not an object, return as is
+  }
+
+  if (Array.isArray(input)) {
+    return input.map((item) => snakeToCamel(item)) as Record<keyof T, any>;
+  }
+
+  const result: Record<keyof T, any> = {} as Record<keyof T, any>;
+
+  for (const key in input) {
+    if (Object.prototype.hasOwnProperty.call(input, key)) {
+      const camelKey = key.replace(/_([a-z])/g, (match, char) =>
+        char.toUpperCase()
+      ) as CamelCase<keyof T>;
+      result[camelKey] = snakeToCamel(input[key]);
+    }
+  }
+
+  return result;
 };

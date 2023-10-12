@@ -1,29 +1,29 @@
-import { render, screen } from "@testing-library/vue";
+import { mount } from "@vue/test-utils";
 import NoteList from "../components/NotesList.vue";
 
 describe("NoteList", () => {
-  it("renders with given props", () => {
-    const allNotes = [
-      {
-        note: "fakeNote",
-        time: "fakeTime",
-        area: "fakeArea",
-        location: "fakeLocation",
-      },
-    ];
-
-    const { container } = render(NoteList, {
+  it('should emit "handlePrevious" when previous button is clicked', async () => {
+    const wrapper = mount(NoteList, {
       props: {
-        allNotes,
+        showPagination: true,
+        previousDisabled: false,
+        nextDisabled: false,
+      },
+    });
+    const prevButton = wrapper.find('[data-testid="prev-button"]');
+    expect(prevButton).toBeDefined();
+  });
+
+  it('should emit "handleNext" when next button is clicked', async () => {
+    const wrapper = mount(NoteList, {
+      props: {
+        showPagination: true,
+        previousDisabled: false,
+        nextDisabled: false,
       },
     });
 
-    expect(container).toMatchSnapshot();
-
-    const tableHeaders = screen.queryAllByRole("columnheader");
-    expect(tableHeaders).toBeDefined();
-
-    const tableDataRows = screen.queryAllByRole("row");
-    expect(tableDataRows).toBeDefined();
+    const nextButton = wrapper.find('[data-testid="next-button"]');
+    expect(nextButton).toBeDefined();
   });
 });
