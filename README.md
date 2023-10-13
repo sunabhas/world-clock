@@ -9,6 +9,12 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Demo Link
+
+
+[https://amazing-note-app.netlify.app/](https://amazing-note-app.netlify.app/)
+
+
 ## Setup
 
 Make sure to install the dependencies:
