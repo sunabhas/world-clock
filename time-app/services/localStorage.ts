@@ -3,7 +3,7 @@
  * @param key
  * @returns an array of the name same as key from localStorage
  */
-export const getItemFromLocalStorage = (key: string): unknown[] => {
+export const getItemFromLocalStorage = (key: string): unknown => {
   const data = JSON.parse(window.localStorage.getItem(key) || "[]");
   return data;
 };

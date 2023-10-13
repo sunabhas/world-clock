@@ -64,6 +64,7 @@ type CamelCase<T> = T extends `${infer First}_${infer Rest}`
  *
  * @param input
  * @returns the keys of the object in camel case if they are in snake case
+ * @see https://chat.openai.com/
  */
 export const snakeToCamel = <T extends Record<string, any>>(
   input: T
