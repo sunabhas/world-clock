@@ -1,7 +1,7 @@
 <template>
   <div class="w-full px-2 select-wrapper">
-    <label :for="id" class="block mb-2 text-sm font-medium text-gray-900"
-      ><span class="text-red-500">*</span> {{ label }}</label
+    <label :for="id" class="block mb-2 text-sm font-medium text-gray-900">
+      {{ label }} <span class="text-red-500">*</span></label
     >
     <select
       :id="id"

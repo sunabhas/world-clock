@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <label :for="id" class="block mb-2 text-sm font-medium text-gray-900">
-      <span class="text-red-500">*</span> {{ label }}
+      {{ label }} <span class="text-red-500">*</span>
     </label>
     <input
       :id="id"

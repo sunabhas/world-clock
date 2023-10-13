@@ -17,7 +17,7 @@ describe("CustomDropdown", () => {
     });
 
     expect(wrapper.exists()).toBe(true);
-    expect(wrapper.find("label").text()).toBe("* Select an option");
+    expect(wrapper.find("label").text()).toBe("Select an option *");
     expect(wrapper.findAll("option").length).toBe(options.length);
 
     wrapper.find("select").setValue({ selectedOption: "option1" });
