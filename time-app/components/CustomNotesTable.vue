@@ -24,14 +24,11 @@
             :key="colIndex"
             class="px-6 py-4"
           >
-            <div
-              v-if="row[header.toLowerCase()] !== id"
-              class="truncate w-[190px]"
-            >
-              {{ row[header.toLowerCase()] }}
+            <div v-if="header.toLowerCase() === 's.no'">
+              {{ (currentPage - 1) * constants.ITEMS_PER_PAGE + rowIndex + 1 }}
             </div>
-            <div v-else-if="header.toLowerCase() === 's.no'">
-              {{ rowIndex + 1 }}
+            <div v-else class="truncate w-[190px]">
+              {{ row[header.toLowerCase()] }}
             </div>
           </td>
         </tr>
@@ -41,8 +38,10 @@
 </template>
 
 <script setup lang="ts">
+import { constants } from "../utils/constants";
 const props = defineProps<{
   tableHeaders: string[];
   tableNotesData: { note: string; time: string }[];
+  currentPage: number;
 }>();
 </script>

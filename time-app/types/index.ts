@@ -19,7 +19,7 @@ export interface TimezoneInfo {
 
 export interface Note {
   id: number;
-  note: string;
+  description: string;
   time: string;
   area: string;
   location: string;

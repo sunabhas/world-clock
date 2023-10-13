@@ -6,7 +6,7 @@ import { getItemFromLocalStorage, setItemToLocalStorage } from "./localStorage";
  * @param note
  */
 export const setNotesToLocalStorage = (key: string, note: Note) => {
-  const list = getItemFromLocalStorage(key);
+  const list = getItemFromLocalStorage(key) as Note[];
   list.unshift(note);
   setItemToLocalStorage(key, list);
 };

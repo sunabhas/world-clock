@@ -2,6 +2,7 @@
 import { useToast } from "vue-toastification";
 import { getTimezones, getSelectedDateTime, submitNotesInfo } from "../api";
 import { constants, errorMessages } from "../utils/constants";
+import { getAreas, getLocations } from "../utils";
 import { TimezoneInfo } from "../types";
 
 const toast = useToast();
@@ -74,6 +75,7 @@ const addNote = async () => {
     </div>
     <div class="w-full sm:w-[25%] p-2">
       <custom-dropdown
+        id="area"
         label="Area"
         :options="getAreas(listOfTimezones)"
         @updateSelection="handleAreaChange"
@@ -81,6 +83,7 @@ const addNote = async () => {
     </div>
     <div class="w-full sm:w-[25%] p-2">
       <custom-dropdown
+        id="location"
         label="Location"
         :options="getLocations(listOfTimezones, createNoteFormValues.area)"
         @updateSelection="handleLocationChange"
