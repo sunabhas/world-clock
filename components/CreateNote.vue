@@ -7,6 +7,7 @@
         id="note"
         label="Note"
         placeholder="Enter the note..."
+        v-model="createNoteFormValues.note"
         @updateText="handleNote"
       />
     </div>
@@ -15,6 +16,7 @@
         id="area"
         label="Area"
         :options="getAreas(listOfTimezones)"
+        v-model="createNoteFormValues.area"
         @updateSelection="handleAreaChange"
       />
     </div>
@@ -22,6 +24,7 @@
       <custom-dropdown
         id="location"
         label="Location"
+        v-model="createNoteFormValues.location"
         :options="getLocations(listOfTimezones, createNoteFormValues.area)"
         @updateSelection="handleLocationChange"
       />
@@ -34,10 +37,9 @@
 
 <script setup lang="ts">
 import { useToast } from "vue-toastification";
-import { getTimezones, getSelectedDateTime, submitNotesInfo } from "../api";
+import { getTimezones } from "../api";
 import { constants, errorMessages } from "../utils/constants";
 import { getAreas, getLocations } from "../utils";
-import { TimezoneInfo } from "../types";
 
 const toast = useToast();
 const createNoteFormValues: Ref<{
@@ -89,6 +91,9 @@ const handleNote = (value: string) => {
 const dispatchCreatedNote = (newNote: string) => {
   const noteInfo = { ...createNoteFormValues.value };
   emits("addCreatedNote", noteInfo);
+  createNoteFormValues.value.area = "";
+  createNoteFormValues.value.note = "";
+  createNoteFormValues.value.location = "";
 };
 const addNote = async () => {
   for (const data of validationData.value) {
