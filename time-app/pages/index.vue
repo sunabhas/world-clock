@@ -1,38 +1,56 @@
 <template>
-  <div class="p-10">
-    <div class="flex w-full">
-      <div class="flex items-end flex-col w-1/2 ">
-        <custom-dropdown
-          label="Area"
-          :options="listOfAreas"
-          @updateSelection="handleChange"
-        />
-        <custom-dropdown
-          label="Location"
-          :options="listOfLocations"
-          @updateSelection="handleChange"
-        />
-      </div>
-      <div class="ml-4 w-1/2">
-        <custom-textarea id="note" label="Note" placeholder="Enter the note..." />
-      </div>
-    </div>
-    <div>
-      <custom-table :tableHeaders="[]" :tableData="[]" />
-    </div>
-    <div class="flex justify-end w-[91%]">
-        <custom-button text="Save" @handleClick="submitData"/>
+  <div
+    class="sm:px-32 sm:py-16 p-8 h-[100vh]"
+    :class="{ 'blur-[1px]': isLoading }"
+  >
+    <div class="w-full m-auto mb-2">
+      <moon-loader
+        class="absolute z-10 top-2/4 left-2/4"
+        :loading="isLoading"
+        color="blue"
+      />
+      <create-note @addCreatedNote="handleAddCreatedNote" />
+      <notes-list :createdNote="createdNote" />
     </div>
   </div>
 </template>
+
+
 <script setup lang="ts">
-import { ref, Ref } from "vue";
-import { Option } from '../types'
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import { useToast } from "vue-toastification";
+import { Note, TimezoneInfo } from "../types";
+import { constants, errorMessages } from "../utils/constants";
+import { formatDateTime } from "../utils";
+import { setNotesToLocalStorage } from "../services";
+import { getSelectedDateTime, submitNotesInfo } from "../api";
 
-const submitData = () => {
-    //submit data
-}
+const toast = useToast();
+const isLoading: Ref<boolean> = ref(false);
+const createdNote: Ref<Note | null> = ref(null);
+const handleAddCreatedNote = async (note: Note) => {
+  try {
+    isLoading.value = true;
+    const { dateTimeData } = await getSelectedDateTime(
+      constants.GET_TIMEZONES_API,
+      note.area,
+      note.location
+    );
+    note.time = formatDateTime(toRaw(dateTimeData.value as any).utcDatetime);
+    note.id = Date.now();
 
-const listOfAreas: Ref<Option[]> = ref([]);
-const listOfLocations: Ref<Option[]> = ref([]);
+    await submitNotesInfo(constants.SUBMIT_DATA_API, {
+      body: note.description,
+      time: note.time,
+    });
+    toast.success("Note added successfully!");
+    setNotesToLocalStorage(constants.LOCAL_SAVED_NOTES, note);
+    createdNote.value = note;
+  } catch (error) {
+    toast.error("Oops! something went wrong. Please try again");
+  } finally {
+    isLoading.value = false;
+  }
+};
 </script>
+
