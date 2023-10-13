@@ -1,3 +1,21 @@
+<template>
+  <div
+    class="sm:px-32 sm:py-16 p-8 h-[100vh]"
+    :class="{ 'blur-[1px]': isLoading }"
+  >
+    <div class="w-full m-auto mb-2">
+      <moon-loader
+        class="absolute z-10 top-2/4 left-2/4"
+        :loading="isLoading"
+        color="blue"
+      />
+      <create-note @addCreatedNote="handleAddCreatedNote" />
+      <notes-list :createdNote="createdNote" />
+    </div>
+  </div>
+</template>
+
+
 <script setup lang="ts">
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import { useToast } from "vue-toastification";
@@ -13,7 +31,7 @@ const createdNote: Ref<Note | null> = ref(null);
 const handleAddCreatedNote = async (note: Note) => {
   try {
     isLoading.value = true;
-    const { data: dateTimeData } = await getSelectedDateTime(
+    const { dateTimeData } = await getSelectedDateTime(
       constants.GET_TIMEZONES_API,
       note.area,
       note.location
@@ -36,19 +54,3 @@ const handleAddCreatedNote = async (note: Note) => {
 };
 </script>
 
-<template>
-  <div
-    class="sm:px-32 sm:py-16 p-8 h-[100vh]"
-    :class="{ 'blur-[1px]': isLoading }"
-  >
-    <div class="w-full m-auto mb-2">
-      <moon-loader
-        class="absolute z-10 top-2/4 left-2/4"
-        :loading="isLoading"
-        color="blue"
-      />
-      <create-note @addCreatedNote="handleAddCreatedNote" />
-      <notes-list :createdNote="createdNote" />
-    </div>
-  </div>
-</template>

@@ -13,6 +13,8 @@
       <custom-pagination
         :previousDisabled="currentPage === 1"
         :nextDisabled="currentPage === totalPages"
+        :currentPage="currentPage"
+        :totalPages="totalPages"
         @previousClick="getPrevNotes"
         @nextClick="getNextNotes"
       />

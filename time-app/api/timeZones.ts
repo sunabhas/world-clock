@@ -1,9 +1,9 @@
 import { snakeToCamel } from "../utils";
 
 export const getTimezones = (url: string) => {
-  const { data } = useFetch(url);
+  const { data, error: timeZoneApiError } = useFetch(url);
   const listOfTimezones = toRaw(data.value);
-  return { listOfTimezones };
+  return { listOfTimezones, timeZoneApiError };
 };
 
 export const getSelectedDateTime = async (
@@ -12,14 +12,16 @@ export const getSelectedDateTime = async (
   location: string
 ) => {
   const url = `${baseUrl}/${area}/${location}`;
-  const { data, error, pending } = await useFetch(url, {
-    transform: (data) => {
-      return snakeToCamel(data as never);
-    },
-  });
+  const { data: dateTimeData, error: dateTimeDataApiError } = await useFetch(
+    url,
+    {
+      transform: (data) => {
+        return snakeToCamel(data as never);
+      },
+    }
+  );
   return {
-    data,
-    error,
-    pending,
+    dateTimeData,
+    dateTimeDataApiError,
   };
 };

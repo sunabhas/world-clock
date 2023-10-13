@@ -6,6 +6,10 @@
       @handleClick="handlePreviousClick"
       text="Previous"
     />
+
+    <div class="text-gray-500 mt-2 mr-4 ml-1">
+      {{ currentPage }} / {{ totalPages }}
+    </div>
     <custom-button
       data-testid="next-button"
       :disabled="nextDisabled"
@@ -18,6 +22,8 @@
 const props = defineProps<{
   previousDisabled: boolean;
   nextDisabled: boolean;
+  currentPage: number;
+  totalPages: number;
 }>();
 const emits = defineEmits(["previousClick", "nextClick"]);
 

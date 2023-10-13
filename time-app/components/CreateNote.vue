@@ -1,3 +1,37 @@
+<template>
+  <div
+    class="flex flex-col sm:flex-row w-full justify-center items-center border p-4 border-gray-400 rounded-lg"
+  >
+    <div class="w-full sm:w-[40%] p-2">
+      <custom-text-field
+        id="note"
+        label="Note"
+        placeholder="Enter the note..."
+        @updateText="handleNote"
+      />
+    </div>
+    <div class="w-full sm:w-[25%] p-2">
+      <custom-dropdown
+        id="area"
+        label="Area"
+        :options="getAreas(listOfTimezones)"
+        @updateSelection="handleAreaChange"
+      />
+    </div>
+    <div class="w-full sm:w-[25%] p-2">
+      <custom-dropdown
+        id="location"
+        label="Location"
+        :options="getLocations(listOfTimezones, createNoteFormValues.area)"
+        @updateSelection="handleLocationChange"
+      />
+    </div>
+    <div class="w-full flex justify-center item-baseline mt-8 sm:w-[20%] p-2">
+      <custom-button text="Add Note" @handleClick="addNote" :disabled="false" />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { useToast } from "vue-toastification";
 import { getTimezones, getSelectedDateTime, submitNotesInfo } from "../api";
@@ -19,8 +53,14 @@ const createdNote: Ref<string> = ref("");
 const modifiedListOfTimeZone: Ref<string[]> = ref([]);
 const emits = defineEmits(["addCreatedNote", "loadingStatus"]);
 
-const { listOfTimezones } = getTimezones(constants.GET_TIMEZONES_API);
-
+const { listOfTimezones, timeZoneApiError } = getTimezones(
+  constants.GET_TIMEZONES_API
+);
+if (timeZoneApiError.value) {
+  toast.error(
+    "Oops! Something went wrong in fetching areas and locations. Please try again"
+  );
+}
 const validationData = computed(() => [
   {
     value: createNoteFormValues.value.note,
@@ -61,36 +101,4 @@ const addNote = async () => {
 };
 </script>
 
-<template>
-  <div
-    class="flex flex-col sm:flex-row w-full justify-center items-center border p-4 border-gray-400 rounded-lg"
-  >
-    <div class="w-full sm:w-[40%] p-2">
-      <custom-text-field
-        id="note"
-        label="Note"
-        placeholder="Enter the note..."
-        @updateText="handleNote"
-      />
-    </div>
-    <div class="w-full sm:w-[25%] p-2">
-      <custom-dropdown
-        id="area"
-        label="Area"
-        :options="getAreas(listOfTimezones)"
-        @updateSelection="handleAreaChange"
-      />
-    </div>
-    <div class="w-full sm:w-[25%] p-2">
-      <custom-dropdown
-        id="location"
-        label="Location"
-        :options="getLocations(listOfTimezones, createNoteFormValues.area)"
-        @updateSelection="handleLocationChange"
-      />
-    </div>
-    <div class="w-full flex justify-center item-baseline mt-8 sm:w-[20%] p-2">
-      <custom-button text="Add Note" @handleClick="addNote" :disabled="false" />
-    </div>
-  </div>
-</template>
+
