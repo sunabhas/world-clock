@@ -5,7 +5,7 @@
     >
     <select
       :id="id"
-      v-model="selectedOption"
+      :value="modelValue"
       @change="handleSelectChange"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
     >
@@ -27,13 +27,14 @@ const props = defineProps<{
   id: string;
   label: string;
   options: { value: string; label: string }[];
+  modelValue: string;
 }>();
 
 const selectedOption = ref<string | null>(null);
 const emits = defineEmits(["updateSelection"]);
 
-const handleSelectChange = () => {
-  emits("updateSelection", selectedOption.value);
+const handleSelectChange = (event: Event) => {
+  emits("updateSelection", (event.target as HTMLInputElement).value);
 };
 </script>
 <style scoped>

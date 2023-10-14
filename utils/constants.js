@@ -1,7 +1,7 @@
 
 const constants = {
-    GET_TIMEZONES_API : 'http://worldtimeapi.org/api/timezone',
-    SUBMIT_DATA_API: 'http://httpstat.us/201',
+    GET_TIMEZONES_API : 'https://worldtimeapi.org/api/timezone',
+    SUBMIT_DATA_API: 'https://httpstat.us/201',
     LOCAL_SAVED_NOTES: 'localSavedNotes',
     ITEMS_PER_PAGE: 5,
     NOTES_TABLE_HEADERS : ['S.No','Note', 'Time', 'Area', 'Location']
