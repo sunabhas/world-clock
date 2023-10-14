@@ -54,6 +54,9 @@ const createNoteFormValues: Ref<{
 const createdNote: Ref<string> = ref("");
 const modifiedListOfTimeZone: Ref<string[]> = ref([]);
 const emits = defineEmits(["addCreatedNote", "loadingStatus"]);
+const props = defineProps<{
+  isNoteSavedSuccessfully: boolean;
+}>();
 
 const { listOfTimezones, timeZoneApiError } = getTimezones(
   constants.GET_TIMEZONES_API
@@ -91,9 +94,6 @@ const handleNote = (value: string) => {
 const dispatchCreatedNote = (newNote: string) => {
   const noteInfo = { ...createNoteFormValues.value };
   emits("addCreatedNote", noteInfo);
-  createNoteFormValues.value.area = "";
-  createNoteFormValues.value.note = "";
-  createNoteFormValues.value.location = "";
 };
 const addNote = async () => {
   for (const data of validationData.value) {
@@ -104,6 +104,15 @@ const addNote = async () => {
   }
   dispatchCreatedNote(createdNote.value);
 };
+
+watch(
+  () => props.isNoteSavedSuccessfully,
+  () => {
+    createNoteFormValues.value.area = "";
+    createNoteFormValues.value.note = "";
+    createNoteFormValues.value.location = "";
+  }
+);
 </script>
 
 
