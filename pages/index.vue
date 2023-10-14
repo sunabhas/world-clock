@@ -9,7 +9,10 @@
         :loading="isLoading"
         color="blue"
       />
-      <create-note @addCreatedNote="handleAddCreatedNote" />
+      <create-note
+        @addCreatedNote="handleAddCreatedNote"
+        :isNoteSavedSuccessfully="isNoteSavedSuccessfully"
+      />
       <notes-list :createdNote="createdNote" />
     </div>
   </div>
@@ -19,14 +22,15 @@
 <script setup lang="ts">
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import { useToast } from "vue-toastification";
-import { Note, TimezoneInfo } from "../types";
-import { constants, errorMessages } from "../utils/constants";
+import { Note } from "../types";
+import { constants } from "../utils/constants";
 import { formatDateTime } from "../utils";
 import { setNotesToLocalStorage } from "../services";
 import { getSelectedDateTime, submitNotesInfo } from "../api";
 
 const toast = useToast();
 const isLoading: Ref<boolean> = ref(false);
+const isNoteSavedSuccessfully: Ref<boolean> = ref(false);
 const createdNote: Ref<Note | null> = ref(null);
 const handleAddCreatedNote = async (note: Note) => {
   try {
@@ -46,6 +50,7 @@ const handleAddCreatedNote = async (note: Note) => {
     toast.success("Note added successfully!");
     setNotesToLocalStorage(constants.LOCAL_SAVED_NOTES, note);
     createdNote.value = note;
+    isNoteSavedSuccessfully.value = true;
   } catch (error) {
     toast.error("Oops! something went wrong. Please try again");
   } finally {
